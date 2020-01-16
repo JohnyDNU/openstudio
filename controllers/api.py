@@ -346,9 +346,6 @@ def schedule_get_days():
         if date_start > date_end:
             return T("date_end has to be bigger then date_start")
 
-        if (date_end - date_start).days > 7:
-            return T("date_end can be at most 7 days past date_start")
-
     except:
         return T("Missing value: user, key, date_start and date_end are \
                   required values, one or more was missing in your request. \
