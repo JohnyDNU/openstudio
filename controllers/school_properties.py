@@ -37,6 +37,7 @@ def classtypes():
     db.school_classtypes.id.readable=False
     fields = [ db.school_classtypes.thumbsmall,
                db.school_classtypes.Name,
+               db.school_classtypes.Color,
                db.school_classtypes.Link,
                #db.school_classtypes.Description,
                db.school_classtypes.AllowAPI ]
@@ -374,6 +375,8 @@ def locations():
 
     db.school_locations.id.readable=False
     fields = [db.school_locations.Name,
+              db.school_locations.Address,
+              db.school_locations.Color,
               db.school_locations.AllowAPI]
     links = [ lambda row: os_gui.get_button('edit',
                                       URL('location_edit', args=[row.id]),
@@ -534,7 +537,8 @@ def levels():
         session.school_levels_show = show
 
 
-    fields = [db.school_levels.Name]
+    fields = [db.school_levels.Name,
+              db.school_levels.Color]
     links = [ lambda row: os_gui.get_button('edit',
                                      URL('level_edit', args=[row.id]),
                                      T("Edit this practice level")),

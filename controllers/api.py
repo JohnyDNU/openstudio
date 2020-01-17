@@ -112,6 +112,7 @@ def _schedule_get(year, week, sorting, TeacherID, ClassTypeID, LocationID, Level
             (db.school_classtypes.id.belongs(classtype_ids_this_week))
     rows = db(query).select(db.school_classtypes.id,
                             db.school_classtypes.Name,
+                            db.school_classtypes.Color,
                             db.school_classtypes.Link,
                             db.school_classtypes.Description,
                             db.school_classtypes.thumbsmall,
@@ -137,6 +138,7 @@ def _schedule_get(year, week, sorting, TeacherID, ClassTypeID, LocationID, Level
 
         classtypes.append(dict(id=row.id,
                                Name=row.Name,
+                               Color=row.Color,
                                Link=row.Link,
                                LinkThumbSmall=thumbsmall_url,
                                LinkThumbLarge=thumblarge_url,
@@ -196,6 +198,8 @@ def _schedule_get(year, week, sorting, TeacherID, ClassTypeID, LocationID, Level
             (db.school_locations.id.belongs(location_ids_this_week))
     rows = db(query).select(db.school_locations.id,
                             db.school_locations.Name,
+                            db.school_locations.Address,
+                            db.school_locations.Color,
                             cache=caching).as_list()
     data['locations'] = rows
 
@@ -203,6 +207,7 @@ def _schedule_get(year, week, sorting, TeacherID, ClassTypeID, LocationID, Level
     query = (db.school_levels.Archived == False)
     rows = db(query).select(db.school_levels.id,
                             db.school_levels.Name,
+                            db.school_levels.Color,
                             cache=caching).as_list()
     data['levels'] = rows
 
@@ -346,9 +351,6 @@ def schedule_get_days():
         if date_start > date_end:
             return T("date_end has to be bigger then date_start")
 
-        if (date_end - date_start).days > 7:
-            return T("date_end can be at most 7 days past date_start")
-
     except:
         return T("Missing value: user, key, date_start and date_end are \
                   required values, one or more was missing in your request. \
@@ -457,6 +459,7 @@ def schedule_get_days():
             (db.school_classtypes.id.belongs(classtype_ids))
     rows = db(query).select(db.school_classtypes.id,
                             db.school_classtypes.Name,
+                            db.school_classtypes.Color,
                             db.school_classtypes.Link,
                             db.school_classtypes.Description,
                             db.school_classtypes.thumbsmall,
@@ -483,6 +486,7 @@ def schedule_get_days():
         classtypes.append(dict(id=row.id,
                                Name=row.Name,
                                Link=row.Link,
+                               Color=row.Color,
                                LinkThumbSmall=thumbsmall_url,
                                LinkThumbLarge=thumblarge_url,
                                Description=row.Description,
@@ -543,6 +547,8 @@ def schedule_get_days():
             (db.school_locations.id.belongs(location_ids))
     rows = db(query).select(db.school_locations.id,
                             db.school_locations.Name,
+                            db.school_locations.Address,
+                            db.school_locations.Color,
                             cache=caching).as_list()
     data['locations'] = rows
 
@@ -551,6 +557,7 @@ def schedule_get_days():
             (db.school_levels.id.belongs(level_ids))
     rows = db(query).select(db.school_levels.id,
                             db.school_levels.Name,
+                            db.school_levels.Color,
                             cache=caching).as_list()
     data['levels'] = rows
 
@@ -1158,6 +1165,7 @@ def _school_classtypes_get(var=None):
     rows = db(query).select(db.school_classtypes.id,
                             db.school_classtypes.Name,
                             db.school_classtypes.Link,
+                            db.school_classtypes.Color,
                             db.school_classtypes.Description,
                             db.school_classtypes.thumbsmall,
                             db.school_classtypes.thumblarge,
@@ -1166,6 +1174,7 @@ def _school_classtypes_get(var=None):
     for row in rows:
         classtypes.append(dict(id=row.id,
                                Name=row.Name,
+                               Color=row.Color,
                                Link=row.Link,
                                LinkThumbSmall=_get_url_image(row.thumbsmall),
                                LinkThumbLarge=_get_url_image(row.thumblarge),
