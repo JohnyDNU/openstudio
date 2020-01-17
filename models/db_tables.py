@@ -28,7 +28,8 @@ from general_helpers import create_classtypes_dict
 scheduler = Scheduler(
     db,
     tasks=scheduler_tasks,
-    utc_time=True
+    utc_time=True,
+    migrate=False
 )
 
 # helper functions
@@ -1189,6 +1190,8 @@ def define_school_classtypes():
         Field('Name', required=True,
             requires=IS_NOT_EMPTY(),
             label=T("Name")),
+        Field('Color',
+              label=T("Color")),
         Field('Link',
             represent=lambda value, row: value or '',
             label=T("Link to Description"),
@@ -1235,6 +1238,10 @@ def define_school_locations():
         Field('Name', required=True,
             requires=IS_NOT_EMPTY(),
             label=T("Name")),
+        Field('Address',
+            label=T("Address")),
+        Field('Color',
+            label=T("Color")),
         Field('AllowAPI', 'boolean', required=True,
             default=False,
             label=T("Public"),
@@ -1701,6 +1708,7 @@ def define_school_levels():
             default=False,
             label=T("Archived")),
         Field('Name', required=True, requires=IS_NOT_EMPTY(), label=T("Name")),
+        Field('Color', label=T("Color")),
         format='%(Name)s')
 
 
