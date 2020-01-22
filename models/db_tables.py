@@ -1191,7 +1191,10 @@ def define_school_classtypes():
             requires=IS_NOT_EMPTY(),
             label=T("Name")),
         Field('Color',
-              label=T("Color")),
+            label=T("Color"),
+            represent = lambda row, value : INPUT(value=row, _type='color', _hex="true", _value=value, _disabled='disabled'),
+            widget=lambda f,v:
+                SQLFORM.widgets.string.widget(f,v, _value=v, _type='color', _hex='true')),
         Field('Link',
             represent=lambda value, row: value or '',
             label=T("Link to Description"),
@@ -1241,7 +1244,10 @@ def define_school_locations():
         Field('Address',
             label=T("Address")),
         Field('Color',
-            label=T("Color")),
+            label=T("Color"),
+            represent = lambda row, value : INPUT(value=row, _type='color', _hex="true", _value=value, _disabled='disabled'),
+            widget=lambda f,v:
+                SQLFORM.widgets.string.widget(f,v, _value=v, _type='color', _hex='true')),
         Field('AllowAPI', 'boolean', required=True,
             default=False,
             label=T("Public"),
@@ -1708,7 +1714,11 @@ def define_school_levels():
             default=False,
             label=T("Archived")),
         Field('Name', required=True, requires=IS_NOT_EMPTY(), label=T("Name")),
-        Field('Color', label=T("Color")),
+        Field('Color',
+            label=T("Color"),
+            represent = lambda row, value : INPUT(value=row, _type='color', _hex="true", _value=value, _disabled='disabled'),
+            widget=lambda f,v:
+                SQLFORM.widgets.string.widget(f,v, _value=v, _type='color', _hex='true')),
         format='%(Name)s')
 
 
